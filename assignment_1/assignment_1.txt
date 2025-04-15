@@ -1,0 +1,364 @@
+--- 문제 정의 
+
+정렬은 컴퓨터 알고리즘에서 가장 기본적이면서도 중요한 연산 중 하나이다. 다양한 문제 해결 과정에서 정렬이 전처리로 활용되거나, 더 복잡한 알고리즘의 내부 동작에 포함되는 경우가 많기 때문에, 효율적인 정렬 알고리즘을 선택하는 것은 전체 알고리즘의 성능에 큰 영향을 미친다. 특히 입력 데이터의 특성이나 크기에 따라 정렬 알고리즘의 실행 시간, 메모리 사용량, 안정성 등의 성능이 크게 달라지므로, 단순히 시간복잡도만으로 알고리즘을 평가하는 것은 실제 상황에서는 한계가 있다.
+
+이 과제는 정렬 알고리즘에 대한 이론적 분석, 직접 구현, 그리고 실험 기반 성능 비교의 세 가지 측면을 중심으로 구성된다.
+총 12개의 정렬 알고리즘—전통적인 비교 기반 정렬 6종(Bubble Sort, Selection Sort, Insertion Sort, Quick Sort, Heap Sort, Merge Sort)과 현대 정렬 알고리즘 6종(Tim Sort, Comb Sort, Cocktail Shaker Sort, Introsort, Tournament Sort, Library Sort)—을 구현하고, 다양한 조건에서 성능을 측정 및 분석한다.
+
+실험은 입력 데이터의 구성에 따라 4가지 유형(완전 정렬, 역순 정렬, 무작위 정렬, 부분 정렬)으로 나누어 진행하였고, 데이터 크기는 각각 1천, 1만, 10만, 100만 개로 설정하여 다양한 규모를 다루었다. 각 알고리즘은 모든 조합에 대해 10회씩 반복 실행되었고, 따라서 알고리즘별로 160회, 전체적으로는 1920회의 실험이 수행되었다.
+
+이 과제에서는 정렬 알고리즘의 실행 시간, 메모리 사용량, 그리고 정렬의 안정성을 주요 평가 지표로 삼았다. 또한 필요 시 각 알고리즘의 의사 코드를 포함하여 알고리즘 구조의 이해도를 높이고자 하였다.
+
+이러한 실험을 통해 다음과 같은 질문에 대한 실질적인 답을 도출하고자 한다:
+
+알고리즘의 이론적인 시간/공간 복잡도는 실제 실행 시간과 얼마나 일치하는가?
+
+특정한 상황(입력 크기, 데이터 정렬 정도 등)에서 어떤 정렬 알고리즘이 가장 적절한 선택인가?
+
+정렬 알고리즘을 다양한 관점에서 분석하고 직접 실험해 봄으로써, 알고리즘의 성능을 입체적으로 바라보는 안목을 기를 수 있었고, 앞으로 문제 해결 시 항상 복잡도와 효율성을 고려할 수 있는 개발자가 되기 위한 기초를 다질 수 있었다.
+
+--- 전통 정렬 알고리즘
+전통 정렬 알고리즘
+전통 정렬 알고리즘은 총 6개이다 : Bubble Sort, Selection Sort, Insertion Sort, Quick Sort, Heap Sort, Merge Sort
+모든 알고리즘은 오름차순으로 정렬되게 코드를 작성하였다. 전통 정렬 코드는 알고리즘 수업에서 다루었기 때문에 별도의 의사 코드는 작성하지 않았다.
+
+Bubble Sort
+Bubble Sort는 리스트의 i번째 값과 i+1번째 값을 반복적으로 비교하고, 잘못된 순서(왼쪽에 더 큰 값이 있는 경우)일 때 서로 교환하는 방식으로 작동한다. 이 과정을 리스트 전체(n개)에 대해 반복하면, 가장 큰 요소가 오른쪽 끝으로 bubble처럼 밀려나가게 된다.
+
+가장 단순한 정렬 방법 중 하나이며, 추가적인 메모리가 필요하지 않아 구현이 간단하고 가볍다. 하지만 n번의 반복마다 최대 n번의 비교 및 교환이 일어나기 때문에 큰 입력 리스트에서는 적절하지 않다.
+
+시간 복잡도
+ 최선: O(n) – 이미 정렬된 경우, 한 번의 반복만으로 정렬 완료
+ 평균/최악: O(n²) – 모든 요소 쌍에 대해 비교·교환
+
+공간 복잡도
+ O(1) – 배열 내부에서 직접 교환
+
+안정 정렬 여부
+ 맞다 – 인접 원소 간의 교환만 일어나므로 동일한 값의 순서 유지됨
+
+Selection Sort
+Selection Sort는 미정렬된 구간에서 최솟값의 인덱스를 찾은 뒤, 그 값을 i번째 요소와 교환하는 방식으로 작동한다. 이 과정을 리스트의 모든 요소(n개)에 대해 반복하면, 각 반복마다 n-i개의 요소 중 최솟값이 i번째 자리에 배치된다.
+
+전통적인 정렬 방법 중 하나로 추가적인 메모리가 필요하지 않으며, 구현도 단순하다. Bubble Sort보다 교환 횟수는 적지만, 비교 연산은 항상 n(n-1)/2번 발생하기 때문에 효율적이지는 않다.
+
+시간 복잡도
+ 최선/평균/최악: O(n²) – 항상 모든 요소를 비교해야 함
+
+공간 복잡도
+ O(1) – 배열 내에서 교환
+
+안정 정렬 여부
+ 아니다 – 동일한 값을 가진 원소들이 교환 과정에서 순서가 바뀔 수 있음
+
+Insertion Sort
+Insertion Sort는 리스트의 두 번째 요소부터 시작해서 왼쪽으로 이동하며, 현재 값보다 큰 값을 만나면 기존 요소들을 오른쪽으로 한 칸씩 밀고, 적절한 위치에 현재 요소를 삽입하는 방식이다.
+
+삽입 위치를 찾는 과정에서 비교와 이동이 발생하지만, 값의 위치를 swap하지 않고 shift 방식으로 이동하기 때문에 효율적이다. 이미 정렬된 리스트에 대해서는 매우 빠르지만, 큰 입력에는 적절하지 않다.
+
+시간 복잡도
+ 최선: O(n) – 이미 정렬된 경우, 거의 비교 없이 삽입 가능
+ 평균/최악: O(n²) – 삽입 시 왼쪽 끝까지 비교/이동 반복
+
+공간 복잡도
+ O(1) – 제자리 정렬
+
+안정 정렬 여부
+ 맞다 – 요소를 밀어넣기 때문에 같은 값의 순서가 유지됨
+
+Quick Sort
+Quick Sort는 리스트에서 pivot 값을 기준으로, 작은 값은 왼쪽, 큰 값은 오른쪽으로 정렬되도록 리스트를 분할하고, 이를 재귀적으로 반복하는 방식이다. left와 right 포인터를 이용하여 pivot 기준 잘못된 위치의 요소를 swap한다.
+
+분할을 반복할수록 평균적으로 log n 깊이의 재귀 구조를 형성하고, 각 단계마다 n개의 비교가 일어난다. pivot 선택이 나쁘면 성능이 급격히 저하될 수 있다.
+
+시간 복잡도
+ 최선/평균: O(n log n) – pivot이 중간값 역할을 잘 할 경우
+ 최악: O(n²) – pivot이 항상 최대 또는 최소일 경우, 분할 불균형
+
+공간 복잡도
+ O(log n) – 재귀 호출 깊이
+
+안정 정렬 여부
+ 아니다 – pivot 기준 swap 과정에서 순서가 바뀔 수 있음
+
+Heap Sort
+Heap Sort는 리스트를 최대 힙 구조로 변환한 후, 루트 노드(가장 큰 값)를 리스트의 끝으로 보낸 뒤, 남은 요소로 다시 heapify를 반복하여 정렬한다.
+
+초기 heapify 과정이 필요하며, 이후에는 루트와 마지막 요소를 swap한 뒤, 남은 힙을 재정렬한다. 항상 O(n log n)의 시간 복잡도를 가지며, 메모리 효율도 좋지만 Quick Sort보다 상대적으로 느릴 수 있다.
+
+시간 복잡도
+ 최선/평균/최악: O(n log n) – heapify 반복
+
+공간 복잡도
+ O(1) – 제자리 정렬
+
+안정 정렬 여부
+ 아니다 – heapify 중 동일한 값의 순서가 바뀔 수 있음
+
+Merge Sort
+Merge Sort는 리스트를 계속 반으로 나눈 뒤, 정렬된 두 리스트를 병합하는 방식으로 작동한다. 각 단계마다 병합 시 정렬된 리스트의 앞쪽부터 비교하여 작은 값을 새로운 리스트에 넣는다.
+
+항상 일정한 시간 복잡도를 유지하며, 정렬된 리스트에도 안정적으로 작동한다. 다만, 병합 시 추가적인 배열 공간이 필요하다.
+
+시간 복잡도
+ 최선/평균/최악: O(n log n) – 리스트 분할과 병합이 log n 단계로 반복
+
+공간 복잡도
+ O(n) – 병합 시 새로운 배열 사용
+
+안정 정렬 여부
+ 맞다 – 병합 과정에서 순서가 유지됨
+
+
+---현대 정렬 알고리즘 
+현대 정렬 알고리즘은 총 6개이다 : Tim Sort, Comb Sort, Cocktail Shaker Sort, Intresort sort, Tournament Sort, Library Sort 
+모든 알고리즘은 오름차순으로 정렬되게 코드를 작성하였다.
+
+Tim Sort: 
+Tim Sort 는 python과 Java 등에서 사용되는 실제 상용 정렬 알고리즘으로, insertion sort + merge sort를 결합한 하이브리드 정렬이다.
+작은 구간은 insertion sort로 정렬하고, 이후 정렬된 구간들을 merge sort 방식으로 병합해 전체 리스트를 정렬한다. 리스트를 run 단위(내 구현 코드에서는 32개씩)로 쪼개서 각 조각 list에 대해 insertion sort를 수행한 후, 점점 커지는 단위로 병합을 반복한다. n/run 번의 insertion sort 호출이 있고, 각 호출마다 최악의 경우 O(n^2)의 시간이 걸린다. 각 구간에 대해서 merge sort는 총 log 2 (n/r)번 호출되며, 각 호출마다 O(n)의 시간이 소요된다. insertion sort에서는 추가적인 메모리가 필요하지 않지만, merge 과정에서 새로운 리스트를 생성하기 떄문에 추가적인 메모리가 필요하다. 작은 리스트에서는 insertion sort로 충분하기 때문에 적절하지 않고, 단위 정렬 후 merge 로 진행되기 때문에 병렬 처리 환경에서는 적절하지 않다. 
+
+시간 복잡도
+	최선: O(n) - 이미 부분 정렬되어 있는 경우 insertion sort가 매우 빠름
+	평균/최악: O(n log n) - 전체적으로 merge 정렬 병합 구조를 따르기 때문
+공간 복잡도 O(n) : merge 과정에서 병합된 결과를 저장하기 위해 새로운 배열이 필요함
+안정 정렬이 맞다 : 병합 과정에서 <= 를 기준으로 값을 넣도록 구현했기 때문에 동일한 값의 상대적 순서가 유지된다. 
+
+pseudocode:
+function TIM_SORT(list):
+    run_size ← 32
+    n ← length of list
+
+    // Step 1: insertion sort on subarrays
+    for i from 0 to n by run_size:
+        insertion_sort(list, i, min(i + run_size - 1, n - 1))
+
+    // Step 2: merge subarrays
+    size ← run_size
+    while size < n:
+        for left from 0 to n by 2 * size:
+            mid ← left + size - 1
+            right ← min(left + 2 * size - 1, n - 1)
+            if mid < right:
+                merge(list, left, mid, right)
+        size ← size × 2
+
+    return list
+
+Comb Sort:
+Comb Sort는 Bubble Sort를 개선한 형태로, 처음에는 멀리 떨어진 요소들끼리 비교한 뒤 점점 그 거리를 줄여가며 정렬하는 방식으로 작동한다. 초기에는 큰 gap을 가지고 값들을 교환하면서 큰 값을 빠르게 뒤로 보내고, 이후 gap을 점점 줄이면서 gap=1에 가까워지면  Bubble Sort처럼 작동하게 된다. 초반 gap은 n으로 설정되며, 매 반복마다 gap이 줄어든다. 나의 구현에서는 shrink factor를 1.3으로 두었다. gap을 줄여가면서 list[i]와 list[i + gap]을 비교해서 잘못된 순서일 경우 swap을 수행했다. gap이 1이 될 때까지 반복하며, 빠르게 큰 값을 뒤로 보낼 수 있다. gap은 log(n)회 줄어들며, 각 반복마다 최대 n번의 비교가 일어난다. 리스트 내에서 직접 요소를 swap하는 방식이기 떄문에 추가적인 공간이 필요하지 않다. 이미 정렬된 리스트에는 적절하지 않다.
+
+시간 복잡도
+ 최선: O(n log n) – 초기에 큰 gap으로 빠르게 정렬되는 경우
+ 평균: O(n^1.5) – gap 감소 효과로 인해 평균적으로 빠름
+ 최악: O(n²) – bubble처럼 작동하는 구조이기 때문에 최악의 경우에는 모든 요소를 여러 번 비교해야 함
+공간 복잡도 O(1) : 리스트 내에서 직접 요소를 swap하기 때문에 추가적인 메모리는 사용되지 않는다.
+안정 정렬이 아니다 : gap 단위로 비교 및 swap을 수행하므로 동일한 값을 가진 요소들의 순서가 바뀔 수 있다.
+
+pseudocode: function COMB_SORT(list):
+ n ← length of list
+ gap ← n
+ shrink ← 1.3
+ swapped ← true
+
+ while gap > 1 OR swapped is true:
+  gap ← floor(gap / shrink)
+  if gap < 1:
+   gap ← 1
+  swapped ← false
+
+  for i from 0 to n - gap - 1:
+   if list[i] > list[i + gap]:
+    swap(list[i], list[i + gap])
+    swapped ← true
+
+ return list
+
+Cocktail Shaker Sort:
+Cocktail Shaker Sort는 Bubble Sort의 변형된 형태로, 양방향으로 리스트를 스캔하면서 정렬을 수행한다. Bubble Sort는 한 방향(왼쪽 → 오른쪽)으로만 가장 큰 값을 뒤로 밀어내지만, Cocktail Sort는 왼쪽에서 오른쪽으로 큰 값을 밀고, 다시 오른쪽에서 왼쪽으로 작은 값을 앞으로 밀어내는 식으로 앞뒤로 왕복하며 정렬을 진행한다. 왕복하면서 가장 큰 값과 가장 작은 값이 한 번에 제자리로 가기 때문에, 단순 Bubble Sort보다는 교환 횟수가 줄어들 수 있다. 하지만 여전히 인접한 요소만 비교하며 반복해야 하므로, 평균적으로는 O(n²)의 시간 복잡도를 가진다. swap이 발생하지 않으면 정렬이 완성되었기 때문에 반복이 종료된다. 각 왕복마다 최대 n번의 비교가 발생하고, 리스트 내에서 직접 요소를 swap하기 때문에 추가적인 메모리는 필요하지 않다. 정렬된 리스트에는 불필요한 왕복 스캔이 생기기 때문에 적절하지 않고, 인접한 요소만을 비교하기 때문에 실행 속도는 느리다. 
+
+시간 복잡도
+ 최선: O(n) – 이미 정렬된 리스트의 경우, 첫 번째 스캔에서 swap이 발생하지 않아 바로 종료된다.
+ 평균/최악: O(n²) – 모든 요소 쌍을 인접 비교해야 하는 경우, Bubble Sort처럼 반복이 많아진다.
+공간 복잡도 O(1) : 리스트 내에서 직접 요소를 swap하기 때문에 추가적인 배열이나 메모리는 사용되지 않는다.
+안정 정렬이 맞다 : 인접한 요소끼리만 swap하므로 동일한 값을 가진 요소들의 상대적 순서가 유지된다.
+
+pseudocode:
+function COCKTAIL_SHAKER_SORT(list):
+ start ← 0
+ end ← length of list - 1
+ swapped ← true
+
+ while swapped is true:
+  swapped ← false
+
+  // 왼쪽에서 오른쪽으로 큰 값 보내기
+  for i from start to end - 1:
+   if list[i] > list[i + 1]:
+    swap(list[i], list[i + 1])
+    swapped ← true
+
+  if swapped is false:
+   break
+
+  end ← end - 1
+  swapped ← false
+
+  // 오른쪽에서 왼쪽으로 작은 값 보내기
+  for i from end - 1 down to start:
+   if list[i] > list[i + 1]:
+    swap(list[i], list[i + 1])
+    swapped ← true
+
+  start ← start + 1
+
+ return list
+
+Introsort:
+Introsort는 Quick Sort의 평균적인 성능과 Heap Sort의 최악 시간 복잡도 보장을 결합한 하이브리드 정렬 알고리즘이다. C++의 std::sort()에서 실제로 사용되고 있는 알고리즘이며, 특정 구간에 따라 Quick, Heap, Insertion Sort를 적절히 선택하여 사용한다. 먼저 리스트 구간의 크기를 확인해서, 구간의 크기가 작을 경우(나의 구현 코드에서는 16 이하)에는 Insertion Sort를 수행하고, Quick Sort의 재귀 깊이가 일정 이상으로 깊어지면 Heap Sort로 전환한다. 그렇지 않은 경우에는 Quick Sort의 partition 방식으로 분할 정렬을 수행한다. 이렇게 세 가지 정렬 알고리즘을 섞어 사용함으로써 평균적으로는 매우 빠르고, 최악의 경우에도 성능 보장이 가능하다. 재귀 깊이는 2 * log2(n)으로 설정했으며, 각 재귀 호출마다 1씩 감소시켜 깊이를 제한했다. Quick Sort로 시작하되, 분할된 구간이 너무 작으면 Insertion Sort로 마무리하고, 분할이 너무 많아질 경우 Heap Sort로 안전하게 전환하는 구조이다. 리스트 내에서 직접 정렬을 수행하므로 추가적인 배열은 필요하지 않지만, Heap Sort 내부에서 heapify 과정에 log n 깊이의 재귀 호출이 발생한다. 각 heapify 재귀 호출마다 log 2 의 시간이 걸린다. 구현이 복잡해서 간단한 정렬 알고리즘이 필요한 경우에는 적합하지 않다. 
+
+시간 복잡도
+ 최선/평균/최악: O(n log n) – Quick Sort, Heap Sort 모두 최악의 경우 O(n log n) 보장.
+공간 복잡도 O(log n) : Quick Sort의 재귀 호출 깊이인 log n 만큼의 heapify 과정에서 추가적인 공간을 사용하고, 추가 배열은 생성하지 않는다.
+안정 정렬이 아니다 : Quick Sort와 Heap Sort 모두 요소의 위치를 직접 swap하며 정렬하므로, 동일한 값의 상대적 순서가 바뀔 수 있다.
+
+pseudocode:
+function INTROSORT_SORT(list):
+ depth_limit ← 2 * floor(log₂(n))
+ call INTROSORTION(list, 0, length of list - 1, depth_limit)
+ return list
+
+function INTROSORTION(list, left, right, depth_limit):
+ size ← right - left + 1
+ if size < 16:
+  insertion_sort(list, left, right)
+  return
+ if depth_limit == 0:
+  heap_sort(list, left, right)
+  return
+ pivot ← partition(list, left, right)
+ INTROSORTION(list, left, pivot - 1, depth_limit - 1)
+ INTROSORTION(list, pivot + 1, right, depth_limit - 1)
+
+function PARTITION(list, low, high):
+ pivot ← list[high]
+ i ← low
+ for j from low to high - 1:
+  if list[j] ≤ pivot:
+   swap list[i] and list[j]
+   i ← i + 1
+ swap list[i] and list[high]
+ return i
+
+Tournament Sort:
+Tournament Sort는 모든 요소를 트리의 리프 노드로 배치한 후, 각 자식 노드들을 비교해서 작은 값을 부모 노드로 올리는 방식으로 정렬을 수행한다. 이 과정을 반복하여 최종적으로 트리의 루트(root)에는 가장 작은 값이 남게 되고, 이를 추출하면서 정렬 리스트를 만들어나간다. 이후 트리의 루트에 위치한 최솟값을 n번 추출하며 리스트를 정렬한다. 각 최솟값 추출 시 해당 리프 노드를 찾아 INT_MAX로 바꾸고, 바뀐 값을 부모까지 다시 갱신해 트리를 업데이트 해 새로운 최솟값을 찾는다. 이진 tree 구조 덕분에 매번 O(log n)의 시간으로 최솟값을 추출할 수 있고, 총 n번의 추출이 일어난다. 하지만 트리를 저장하기 위한 O(n) 크기의 추가 메모리가 필요하며, 매번 리프를 추적하고 값을 바꾸는 작업이 들어가므로 실제 구현은 다소 복잡할 수 있다.
+
+시간 복잡도
+ 최선/평균/최악: O(n log n) – 모든 요소를 트리로 구성하고, 각 최솟값 추출마다 log n 시간 소요
+공간 복잡도 O(n) : 트리를 표현하기 위해 전체 리스트 크기의 2배 정도의 배열이 필요하다
+안정 정렬이 아니다 : 동일한 값을 가진 요소들이 리프에서 위치를 바꾸며 트리를 올라가므로, 상대 순서가 유지되지 않을 수 있다
+
+pseudocode:
+function TOURNAMENT_SORT(list):
+ n ← length of list
+ tree_size ← 2 * n
+ tree ← array of size tree_size, initialized with INF
+ result ← empty list
+
+ // 트리 리프 초기화
+ for i from 0 to n - 1:
+  tree[n + i] ← list[i]
+
+ // 트리 구성 (리프에서 위로)
+ for i from n - 1 down to 1:
+  tree[i] ← min(tree[2 * i], tree[2 * i + 1])
+
+ // n번 추출
+ for i from 0 to n - 1:
+  min_val ← tree[1]
+  append min_val to result
+
+  j ← 1
+  while j < n:
+   if tree[2 * j] == tree[j]:
+    j ← 2 * j
+   else:
+    j ← 2 * j + 1
+
+  tree[j] ← INF
+  while j > 1:
+   j ← j // 2
+   tree[j] ← min(tree[2 * j], tree[2 * j + 1])
+
+ return result
+
+Library Sort:
+Library Sort는 삽입 정렬을 개선한 형태의 정렬 알고리즘으로, 리스트 내에 값을 삽입할 여유 공간을 확보하여 삽입 시 밀어내야 할 요소의 수를 줄이는 방식으로 작동한다. 처음 값을 중앙에 배치하고, 그 이후부터는 binary search로 적절한 삽입 위치를 탐색한 뒤, 그 주변의 빈칸 중 적절한 위치를 찾아 값을 삽입한다. 삽입 위치에 빈 공간이 없을 경우, 주변으로 빈칸을 탐색해 가장 가까운 위치에 삽입한다.
+ 이 과정에서 binary search는 O(log n) 시간에 삽입 위치를 결정하고, 빈칸이 충분하다면 밀어낼 요소 없이 빠르게 삽입할 수 있다. 하지만 삽입 위치 주변에 빈칸이 없을 경우 탐색 시간이 길어질 수 있으며, 이를 방지하기 위해 전체 배열 크기를 넉넉하게 설정해야 한다. 실제 구현에서는 전체 배열 크기를 4n으로 설정했다. library sort의 핵심 작업인 val_index는 정렬된 순서대로 값이 삽입된 blank_list 내부의 실제 인덱스만을 저장하는 리스트이다. Library Sort는 값들을 빈칸이 포함된 큰 리스트(blank_list)에 삽입하지만, 그 결과를 순서대로 정렬하기 위해서는 blank_list에서 실제로 값이 들어간 위치(인덱스)를 따로 추적해야 한다. val_index는 이 역할을 하며, 항상 정렬된 순서로 유지된다. 이 val_index를 통해서 정렬된 인덱스 순서를 통해 값을 빠르게 가져와서 정렬된 결과를 얻는다. log n 시간에 blank_list에 삽입하고, val_index 리스트를 통해 sorted list를 작성하므로 n의 시간이 걸린다. 여유 공간이 부족하거나 빈칸 탐색이 비효율적으로 구현되면 성능 저하가 발생할 수 있다
+
+시간 복잡도
+ 최선: O(n) – 삽입 위치 근처에 항상 충분한 빈칸이 있어, 이진 탐색 후 별다른 이동 없이 바로 삽입이 가능한 경우
+ 평균: O(n log n) – 삽입 위치는 이진 탐색으로 찾고, 충분한 공간 확보로 인해 대부분 직접 삽입 가능
+ 최악: O(n²) – 삽입 위치 주변에 빈칸이 전혀 없고, 빈칸 탐색이 전체 배열을 선형으로 훑어야 하는 경우
+공간 복잡도 O(n) : 삽입 시 공간 여유를 확보하기 위해 전체 리스트 크기의 3~4배에 해당하는 blank list를 생성
+안정 정렬이 아니다 : 빈칸의 위치와 삽입 순서에 따라 동일한 값을 가진 요소들의 상대적 순서가 변경될 수 있다
+
+pseudocode:
+function LIBRARY_SORT(list):
+ n ← length of list
+ size ← 4 * n
+ blank_list ← array of size size with optional<int>
+ val_index ← empty list of integer indices
+
+ for each element i in list:
+  if val_index is empty:
+   insert i at center of blank_list
+   record index in val_index
+   continue
+
+  index ← binary_search(blank_list, val_index, i)
+
+  if index == size:
+   val ← min(size - 2, val_index.back() + 2)
+  else if index == 0:
+   val ← max(0, val_index[0] - 2)
+  else:
+   val ← (val_index[index - 1] + val_index[index]) / 2
+
+  fin_val ← find_nearest_gap(blank_list, val, n)
+  blank_list[fin_val] ← i
+  insert fin_val into val_index at position index
+
+ result ← values from blank_list in order of val_index
+ return result
+
+-- 특정한 상황에서의 정렬 알고리즘 선택 
+리스트 크기가 작을 경우 (n ≲ 1000)
+ Tim Sort > Insertion Sort > Introsort(구간 Insertion) > Selection Sort > Cocktail Sort > Bubble Sort
+
+리스트 크기가 클 경우 (n ≳ 10,000)
+ Introsort > Quick Sort > Tim Sort > Merge Sort ≥ Heap Sort > Tournament Sort > Library Sort
+
+입력이 이미 정렬되어 있거나 거의 정렬된 경우
+ Tim Sort > Insertion Sort > Merge Sort > Library Sort > Cocktail Sort > Quick Sort
+
+메모리 사용에 민감한 환경
+ Heap Sort > Introsort > Quick Sort > Comb Sort > Cocktail Sort > Insertion Sort > Tim Sort > Merge Sort > Tournament Sort ≈ Library Sort
+
+안정 정렬이 요구되는 경우
+ Tim Sort > Merge Sort > Insertion Sort > Cocktail Sort
+
+중복값이 많거나 값 분포가 편향된 경우
+ Tim Sort > Merge Sort > Tournament Sort > Heap Sort > Library Sort > Quick Sort > Introsort
+
+
+
+-- 실험 결과 
+이번 실험에서는 총 12개의 정렬 알고리즘을 다양한 입력 크기(1,000 ~ 1,000,000)와 다양한 정렬 상태(정렬됨, 역정렬, 무작위, 부분 정렬)에 대해 실행하여, 평균 실행 시간과 메모리 사용량을 측정하였다. 이후 이론적인 시간/공간 복잡도와 비교하여 각 알고리즘이 올바르게 구현되었는지, 또 어떤 특성을 보였는지 분석하겠다. 각 알고리즘은 실행 시간의 단축을 위하여, 한번 만들어진 random input 배열을 재활용하는 방식으로 구현되었다. 따라서 모든 sort 함수는 input 배열을 copy해와서 진행하는 방식으로 구현되었다. 
+
+입력 크기(1000,10000,100000,1000000)별로 평균 실행 시간, 메모리 사용량 등을 표로 작성하여 첨부하였다
+
+
+
+
+
