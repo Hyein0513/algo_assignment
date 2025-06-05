@@ -1,0 +1,13 @@
+=== 테스트 결과 요약 ===
+데이터셋           : a20
+사용 알고리즘      : insertion
+결과 파일          : output/a20_insertion.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 0 ms
+메모리 사용량      : 3456 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+차이 발생 (라인 2)
+GT   : COMMENT: Tour length 332
+내꺼 : COMMENT: Tour length 335

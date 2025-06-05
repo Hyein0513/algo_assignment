@@ -1,0 +1,13 @@
+=== 테스트 결과 요약 ===
+데이터셋           : kz9976
+사용 알고리즘      : insertion
+결과 파일          : output/kz9976_insertion.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 892287 ms
+메모리 사용량      : 3840 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+차이 발생 (라인 2)
+GT   : COMMENT: Tour length 1061882
+내꺼 : COMMENT: Tour length 1351323

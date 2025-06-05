@@ -1,0 +1,43 @@
+TSP
+    : N개의 node를 한번씩 방문 한 뒤 출발 node로 돌아와야함
+    : 모든 node를 한번씩만 방문하면서 총 이동거리가 최소가 되는 경로 찾기 문제 
+    input : grape 구조 
+    output : 최소 거리의 경로 
+
+dataset
+    NAME : kz9976
+    COMMENT : 9976 locations in Kazakhstan
+    COMMENT : Derived from National Imagery and Mapping Agency data
+    TYPE : TSP
+    DIMENSION : 9976
+    EDGE_WEIGHT_TYPE : EUC_2D
+    NODE_COORD_SECTION
+    1 40533.3333 68966.6667
+    2 40616.6667 68550.0000
+    3 40616.6667 68566.6667
+    4 40633.3333 68433.3333
+    5 40633.3333 68566.6667
+    6 40633.3333 68616.6667
+    7 40666.6667 68533.3333
+    ...
+    이런 형식으로 구성되어 있음 
+    
+    도시번호 x좌표 y좌표 
+    이런식으로 구성되어 있으니까 edge 거리는... 유클리드 거리로 계산해야함...
+
+
+dataset GT는 따로 파일 만들어서 넣어놨고
+
+
+MST 
+    : MST 를 만들고 그 위에서 순회하면서 tsp 경로를 만들어낸다는건데 
+    일단 node간의 거리를 계산해서 거리 행렬을 만들고
+    prim's 나 kruskal's 알고리즘으로 mst(중복 없이 최소 거리로만 연결되어있는 트리 구조)를 생성하고
+    그 mst를 dfs(depth first search : 쭉 파고 들어갔다가 막히면 되돌아오는 그 탐색 방식)로 순회해서 euler 경로 
+    그리고 euler에서 중복 node 제거해서 tsp 
+    마지막 도시에서 출발로 돌아가는 간선 추가 
+
+
+
+held
+    : 동적 프로그래밍으로 모든 도시 집합을 순회하는 최소 경로를 찾는 것임 
