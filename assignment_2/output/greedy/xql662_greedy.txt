@@ -3,11 +3,15 @@
 사용 알고리즘      : greedy
 결과 파일          : output/xql662_greedy.tour
 정답 일치 여부     : 불일치
-걸린 시간          : 2 ms
+걸린 시간          : 1 ms
 메모리 사용량      : 3456 KB
 성능 상태          : 정상 실행됨
 
 === 비교 상세 로그 ===
-차이 발생 (라인 2)
+헤더 차이 (라인 2)
 GT   : COMMENT: Tour length 2513
-내꺼 : COMMENT: Tour length 3124
+내꺼 : COMMENT : Tour length 3124
+노드 번호 차이 발견 (처음 일치하지 않은 라인 10)
+GT   : 51
+내꺼 : 42
+TOUR_SECTION 비교 결과: 5 / 663 정확도: 0.754148%

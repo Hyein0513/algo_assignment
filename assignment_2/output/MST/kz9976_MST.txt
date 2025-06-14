@@ -2,12 +2,16 @@
 데이터셋           : kz9976
 사용 알고리즘      : MST
 결과 파일          : output/kz9976_MST.tour
-정답 일치 여부     : 불일치
-걸린 시간          : 668 ms
-메모리 사용량      : 4480 KB
+정답 일치 여부     : 일치함
+걸린 시간          : 761 ms
+메모리 사용량      : 4608 KB
 성능 상태          : 정상 실행됨
 
 === 비교 상세 로그 ===
-차이 발생 (라인 2)
-GT   : COMMENT: Tour length 1061882
-내꺼 : COMMENT: Tour length 1457279
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 1061882
+내꺼 : COMMENT : Tour length 1457279
+노드 번호 차이 발견 (처음 일치하지 않은 라인 7)
+GT   : 61
+내꺼 : 8
+TOUR_SECTION 비교 결과: 3 / 9977 정확도: 0.0300692%

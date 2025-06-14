@@ -1,0 +1,20 @@
+=== 테스트 결과 요약 ===
+데이터셋           : mona-lisa100K
+사용 알고리즘      : hhi_greedy_1 (lambda=70)
+결과 파일          : output/hhi_greedy_1/lambda70.0/mona-lisa100K_lambda70.0.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 256670 ms
+메모리 사용량      : 6064 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+헤더 차이 (라인 2)
+GT   : COMMENT: Tour length 5757191
+내꺼 : COMMENT : Tour length 7116506
+
+[HHI_GREEDY 결과]
+경로 길이          : 7116506
+꺾임 개수          : 99990
+평균 꺾임 각도      : 130.76도
+
+⚠️ Greedy 경로 파일을 읽을 수 없습니다: output/greedy_1/mona-lisa100K_greedy_1.tour

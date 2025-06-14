@@ -3,11 +3,15 @@
 사용 알고리즘      : insertion
 결과 파일          : output/kz9976_insertion.tour
 정답 일치 여부     : 불일치
-걸린 시간          : 892287 ms
-메모리 사용량      : 3840 KB
+걸린 시간          : 1009327 ms
+메모리 사용량      : 3968 KB
 성능 상태          : 정상 실행됨
 
 === 비교 상세 로그 ===
-차이 발생 (라인 2)
-GT   : COMMENT: Tour length 1061882
-내꺼 : COMMENT: Tour length 1351323
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 1061882
+내꺼 : COMMENT : Tour length 1351323
+노드 번호 차이 발견 (처음 일치하지 않은 라인 7)
+GT   : 61
+내꺼 : 6
+TOUR_SECTION 비교 결과: 8 / 9977 정확도: 0.0801844%

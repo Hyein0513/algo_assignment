@@ -1,0 +1,20 @@
+=== 테스트 결과 요약 ===
+데이터셋           : mona-lisa100K
+사용 알고리즘      : hhi_MST (lambda=50)
+결과 파일          : output/hhi_MST/lambda50.0/mona-lisa100K_lambda50.0.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 97999 ms
+메모리 사용량      : 12640 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+헤더 차이 (라인 2)
+GT   : COMMENT: Tour length 5757191
+내꺼 : COMMENT : Tour length 8303961
+
+[HHI_MST 결과]
+경로 길이          : 8303961
+꺾임 개수          : 99703
+평균 꺾임 각도      : 105.67도
+
+⚠️ MST 경로 파일을 읽을 수 없습니다: output/MST/mona-lisa100K_MST.tour

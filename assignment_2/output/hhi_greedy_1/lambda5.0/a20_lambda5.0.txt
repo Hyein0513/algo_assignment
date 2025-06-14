@@ -1,0 +1,24 @@
+=== 테스트 결과 요약 ===
+데이터셋           : a20
+사용 알고리즘      : hhi_greedy_1 (lambda=5)
+결과 파일          : output/hhi_greedy_1/lambda5.0/a20_lambda5.0.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 0 ms
+메모리 사용량      : 3712 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 332
+내꺼 : COMMENT : Tour length 364
+노드 번호 차이 발견 (처음 일치하지 않은 라인 7)
+GT   : 5
+내꺼 : 2
+TOUR_SECTION 비교 결과: 2 / 21 정확도: 9.52381%
+
+[HHI_GREEDY 결과]
+경로 길이          : 364
+꺾임 개수          : 19
+평균 꺾임 각도      : 122.70도
+
+⚠️ Greedy 경로 파일을 읽을 수 없습니다: output/greedy_1/a20_greedy_1.tour

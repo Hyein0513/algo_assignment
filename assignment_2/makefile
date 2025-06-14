@@ -8,31 +8,43 @@ OUTDIR = output
 UTILDIR = utils
 MSTDIR = MST
 HKDIR = Held-Karp
-HHIDIR = hhi
+HHIGREEDYDIR = hhi_greedy
+HHIGREEDYDIR1 = hhi_greedy1
+HHIMSTDIR = hhi_MST
+HHIEULERDIR = hhi_euler
 GREEDYDIR = greedy
 INSERTDIR = insertion
-ANNDIR = annealing
 
+# 공통 소스 파일
+COMMON_SRC = \
+    $(UTILDIR)/utils.cpp \
+    $(MSTDIR)/MST.cpp \
+    $(HKDIR)/held_karp.cpp \
+    $(HHIGREEDYDIR)/hhi_greedy.cpp \
+    $(HHIGREEDYDIR1)/hhi_greedy1.cpp \
+    $(HHIMSTDIR)/hhi_MST.cpp \
+    $(HHIEULERDIR)/hhi_euler.cpp\
+    $(GREEDYDIR)/greedy.cpp \
+    $(INSERTDIR)/insertion.cpp 
 
-# 소스 파일
-SRC = $(SRCDIR)/test.cpp \
-      $(UTILDIR)/utils.cpp \
-      $(MSTDIR)/MST.cpp \
-      $(HKDIR)/held_karp.cpp\
-      $(HHIDIR)/hhi.cpp\
-      $(GREEDYDIR)/greedy.cpp\
-      $(INSERTDIR)/insertion.cpp\
-      $(ANNDIR)/annealing.cpp
-
-# 출력 파일
-TARGET = $(OUTDIR)/test
+# 타겟 파일들
+TARGET = $(OUTDIR)/test $(OUTDIR)/test_hhi $(OUTDIR)/make_csv
 
 # 기본 빌드 명령
 all: $(TARGET)
 
-$(TARGET): $(SRC)
+# 개별 타겟 빌드
+$(OUTDIR)/test: $(SRCDIR)/test.cpp $(COMMON_SRC)
 	@mkdir -p $(OUTDIR)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(OUTDIR)/test_hhi: $(SRCDIR)/test_hhi.cpp $(COMMON_SRC)
+	@mkdir -p $(OUTDIR)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+    
+$(OUTDIR)/make_csv: $(SRCDIR)/make_csv.cpp $(COMMON_SRC)
+	@mkdir -p $(OUTDIR)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # 정리 명령
 clean:

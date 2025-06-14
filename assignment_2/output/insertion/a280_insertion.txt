@@ -3,11 +3,15 @@
 사용 알고리즘      : insertion
 결과 파일          : output/a280_insertion.tour
 정답 일치 여부     : 불일치
-걸린 시간          : 26 ms
-메모리 사용량      : 3456 KB
+걸린 시간          : 33 ms
+메모리 사용량      : 3584 KB
 성능 상태          : 정상 실행됨
 
 === 비교 상세 로그 ===
-차이 발생 (라인 2)
-GT   : COMMENT: Tour length 2579
-내꺼 : COMMENT: Tour length 3094
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 2579
+내꺼 : COMMENT : Tour length 3094
+노드 번호 차이 발견 (처음 일치하지 않은 라인 8)
+GT   : 242
+내꺼 : 280
+TOUR_SECTION 비교 결과: 2 / 281 정확도: 0.711744%

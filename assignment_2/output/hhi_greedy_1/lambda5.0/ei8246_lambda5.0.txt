@@ -1,0 +1,24 @@
+=== 테스트 결과 요약 ===
+데이터셋           : ei8246
+사용 알고리즘      : hhi_greedy_1 (lambda=5)
+결과 파일          : output/hhi_greedy_1/lambda5.0/ei8246_lambda5.0.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 1579 ms
+메모리 사용량      : 4224 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 206171
+내꺼 : COMMENT : Tour length 257868
+노드 번호 차이 발견 (처음 일치하지 않은 라인 7)
+GT   : 27
+내꺼 : 3
+TOUR_SECTION 비교 결과: 1 / 8247 정확도: 0.0121256%
+
+[HHI_GREEDY 결과]
+경로 길이          : 257868
+꺾임 개수          : 8236
+평균 꺾임 각도      : 119.83도
+
+⚠️ Greedy 경로 파일을 읽을 수 없습니다: output/greedy_1/ei8246_greedy_1.tour

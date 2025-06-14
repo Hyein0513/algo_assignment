@@ -1,0 +1,28 @@
+NAME : a20
+COMMENT : Tour length 405
+TYPE : TOUR
+DIMENSION : 20
+TOUR_SECTION
+1
+2
+3
+4
+5
+6
+7
+8
+9
+15
+13
+12
+11
+10
+16
+17
+18
+19
+20
+14
+1
+-1
+EOF

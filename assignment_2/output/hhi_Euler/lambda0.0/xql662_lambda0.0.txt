@@ -1,0 +1,24 @@
+=== 테스트 결과 요약 ===
+데이터셋           : xql662
+사용 알고리즘      : hhi_greedy (lambda=0)
+결과 파일          : output/hhi_greedy/lambda0.0/xql662_lambda0.0.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 4 ms
+메모리 사용량      : 3584 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+헤더 차이 (라인 2)
+GT   : COMMENT: Tour length 2513
+내꺼 : COMMENT : Tour length 3124
+노드 번호 차이 발견 (처음 일치하지 않은 라인 10)
+GT   : 51
+내꺼 : 42
+TOUR_SECTION 비교 결과: 5 / 663 정확도: 0.754148%
+
+[HHI_GREEDY 결과]
+경로 길이          : 3124
+꺾임 개수          : 654
+평균 꺾임 각도      : 133.77도
+
+⚠️ Greedy 경로 파일을 읽을 수 없습니다: output/greedy/xql662_greedy.tour

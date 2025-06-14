@@ -38,20 +38,26 @@ long get_memory_usage_kb() {
     struct rusage usage;
     getrusage(RUSAGE_SELF, &usage);
     return usage.ru_maxrss;
-}int main() {
+}
+
+
+
+int main() {
     // vector<string> datasets = {"a20", "a280", "xql662", "kz9976", "mona-lisa100K"};
+    // vector<string> datasets = {"a20", "a280", "xql662", "kz9976"};
+    
+    vector<string> datasets = {"ei8246", "vm22775", "ja9847"};
     // vector<string> datasets = {"a20"};
     // vector<string> datasets = {"a280"};
     // vector<string> datasets = {"xql662"}
     // vector<string> datasets = {"kz9976"};
-    vector<string> datasets = {"mona-lisa100K"};
+    // vector<string> datasets = {"mona-lisa100K"};
     
     // vector<string> algos = {"MST"};
     // vector<string> algos = {"held-karp"};
-    // vector<string> algos = {"greedy"};
-    vector<string> algos = {"insertion"};
+    vector<string> algos = {"greedy"};
+    // vector<string> algos = {"insertion"};
     // vector<string> algos = {"annealing"};
-    // vector<string> algos = {"hhi"};
 
     for (const string& data_name : datasets) {
         string tsp_path = "data/" + data_name + ".tsp";

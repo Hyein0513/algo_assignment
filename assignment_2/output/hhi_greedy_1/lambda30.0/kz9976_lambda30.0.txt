@@ -1,0 +1,24 @@
+=== 테스트 결과 요약 ===
+데이터셋           : kz9976
+사용 알고리즘      : hhi_greedy_1 (lambda=30)
+결과 파일          : output/hhi_greedy_1/lambda30.0/kz9976_lambda30.0.tour
+정답 일치 여부     : 불일치
+걸린 시간          : 2332 ms
+메모리 사용량      : 4096 KB
+성능 상태          : 정상 실행됨
+
+=== 비교 상세 로그 ===
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 1061882
+내꺼 : COMMENT : Tour length 1337799
+노드 번호 차이 발견 (처음 일치하지 않은 라인 7)
+GT   : 61
+내꺼 : 8
+TOUR_SECTION 비교 결과: 3 / 9977 정확도: 0.0300692%
+
+[HHI_GREEDY 결과]
+경로 길이          : 1337799
+꺾임 개수          : 9967
+평균 꺾임 각도      : 121.73도
+
+⚠️ Greedy 경로 파일을 읽을 수 없습니다: output/greedy_1/kz9976_greedy_1.tour

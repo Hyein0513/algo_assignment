@@ -1,8 +1,8 @@
-// mst 랑 held-karp랑 공통으로 사용되는 함수 모아놓은 utils.cpp 
-
-
+// mst 랑 held-karp랑 뭐 별별 알고리즘에서 공통으로 사용되는 함수 모아놓은 utils.cpp 
 #include "utils.h"
 
+// 출력해야해요
+// log 저장해야해요 
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -14,6 +14,7 @@ using namespace std;
 
 // .tsp 파일에서 좌표 읽어오는 함수 
 vector<point> read_TSP_file(const string& file){
+    cout << file << "222\n";
     // 파일 열고 
     ifstream infile(file);
     // x,y 좌표들을 point 형태로 저장할 벡터
@@ -32,6 +33,7 @@ vector<point> read_TSP_file(const string& file){
     while (getline(infile, line)) {
         // dataset에서는 NODE_COORD_SECTION 로 구분되어 있으니까
         if (line == "NODE_COORD_SECTION"){
+            cout << " 1\n";
             start = true;
             continue;
         }
@@ -108,7 +110,7 @@ void save_tour_file(const string& filename, const vector<int>& path, const vecto
     ofstream out("output/" + filename + ".tour");
     string dim;
     out << "NAME : " << data_name << endl;
-    out << "COMMENT: Tour length " << calculate_total_distance(path, coord) << endl;
+    out << "COMMENT : Tour length " << calculate_total_distance(path, coord) << endl;
     out << "TYPE : TOUR" << endl;
     out << "DIMENSION : " << path.size() - 1 << endl;
     out << "TOUR_SECTION" << endl;
@@ -148,26 +150,56 @@ bool compare_tour_file(const string& gt_file, const string& my_file, stringstrea
 
     string line1, line2;
     int line_num = 1;
+    bool in_tour_section = false;
+    int correct_count = 0, total_count = 0;
+    bool mismatch_reported = false;
 
     while (getline(in1, line1)) {
-        if (!getline(in2, line2)) {
+        bool in2_ok = static_cast<bool>(getline(in2, line2));
+        if (!in2_ok) {
             log << "결과 파일이 먼저 끝남 (라인 " << line_num << ")\n";
-            return false;
+            break;
         }
-        if (line1 != line2) {
-            log << "차이 발생 (라인 " << line_num << ")\n";
-            log << "GT   : " << line1 << "\n";
-            log << "내꺼 : " << line2 << "\n";
-            return false;
+
+        if (in_tour_section) {
+            if (line1 == "EOF" || line2 == "EOF") break;
+
+            total_count++;
+            if (line1 == line2) {
+                correct_count++;
+            } else if (!mismatch_reported) {
+                log << "노드 번호 차이 발견 (처음 일치하지 않은 라인 " << line_num << ")\n";
+                log << "GT   : " << line1 << "\n";
+                log << "내꺼 : " << line2 << "\n";
+                mismatch_reported = true;
+            }
+        } else {
+            if (line1 != line2) {
+                log << "헤더 차이 (라인 " << line_num << ")\n";
+                log << "GT   : " << line1 << "\n";
+                log << "내꺼 : " << line2 << "\n";
+            }
+            if (line1 == "TOUR_SECTION") {
+                in_tour_section = true;
+            }
         }
+
         ++line_num;
     }
 
-    if (getline(in2, line2)) {
-        log << "GT 파일이 먼저 끝남 (라인 " << line_num << ")\n";
-        return false;
+    // GT 다 읽었고, my_file이 더 길면 그건 차이
+    while (!in_tour_section && getline(in2, line2)) {
+        // consume only
     }
 
-    log << "compare_tour_file(): 파일이 완전히 일치합니다.\n";
-    return true;
+    // 정확도 계산 및 로그 출력
+    double accuracy = 0.0;
+    if (in_tour_section && total_count > 0) {
+        accuracy = 100.0 * correct_count / total_count;
+        log << "TOUR_SECTION 비교 결과: " << correct_count << " / " << total_count
+            << " 정확도: " << accuracy << "%\n";
+    }
+
+    // 정확도가 100%일 때만 true 반환
+    return (accuracy == 100.0);
 }

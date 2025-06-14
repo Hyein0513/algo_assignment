@@ -1,82 +1,90 @@
-# tsp랑 tour 파일로 tour 시각화하는 코드 
-# vis는 걍 py가 빠름 
 import os
 import matplotlib.pyplot as plt
 
-def read_tsp_file(tsp_path):
-    coords = []
-    with open(tsp_path, 'r') as f:
-        start = False
-        for line in f:
-            line = line.strip()
-            if line == "NODE_COORD_SECTION":
-                start = True
-                continue
-            if line == "EOF":
-                break
-            if start:
-                parts = line.split()
-                if len(parts) >= 3:
-                    _, x, y = parts
-                    coords.append((float(x), float(y)))
+# 경로 설정
+tour_dir = 'output_fin/tour/'
+tsp_dir = 'data'
+output_dir = 'vis_output_fin'
+
+# 출력 디렉토리 없으면 생성
+os.makedirs(output_dir, exist_ok=True)
+
+# TSP 좌표 로더
+def load_coordinates(tsp_file):
+    coords = {}
+    with open(tsp_file, 'r') as f:
+        lines = f.readlines()
+
+    reading = False
+    for line in lines:
+        line = line.strip()
+        if line == "NODE_COORD_SECTION":
+            reading = True
+            continue
+        if line == "EOF":
+            break
+        if reading:
+            parts = line.split()
+            if len(parts) >= 3:
+                idx = int(parts[0])
+                x = float(parts[1])
+                y = float(parts[2])
+                coords[idx] = (x, y)
     return coords
 
-def read_tour_file(tour_path):
+# TOUR 로더
+def load_tour(tour_file):
     tour = []
-    with open(tour_path, 'r') as f:
-        start = False
-        for line in f:
-            line = line.strip()
-            if line == "TOUR_SECTION":
-                start = True
-                continue
-            if line == "-1" or line == "EOF":
-                break
-            if start:
-                tour.append(int(line) - 1)  # 1-based to 0-based
+    with open(tour_file, 'r') as f:
+        lines = f.readlines()
+
+    reading = False
+    for line in lines:
+        line = line.strip()
+        if line == "TOUR_SECTION":
+            reading = True
+            continue
+        if line in ("-1", "EOF"):
+            break
+        if reading:
+            tour.append(int(line))
     return tour
 
-def plot_and_save(coords, tour, save_path):
-    if tour[0] != tour[-1]:
-        tour.append(tour[0])
-    
-    x = [coords[i][0] for i in tour]
-    y = [coords[i][1] for i in tour]
+# 모든 .tour 파일 처리
+for filename in os.listdir(tour_dir):
+    if filename.endswith('.tour'):
+        # datasetname 추출
+        datasetname = filename.split('_')[0]
+        tsp_file = os.path.join(tsp_dir, f'{datasetname}.tsp')
+        tour_file = os.path.join(tour_dir, filename)
 
-    # 더 큰 이미지와 얇은 선, 작은 점
-    plt.figure(figsize=(12, 12))  # 또는 문제 크기에 따라 조절
-    plt.plot(x, y, marker='o', markersize=0.5, linewidth=0.3, alpha=0.8)
-
-    # 제목은 파일 이름에서 추출
-    plt.title(os.path.basename(save_path).replace("_", " ").replace(".png", ""))
-    plt.axis('equal')
-    plt.axis('off')  # 축 눈금 없애면 더 깔끔함
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-def visualize_all(tsp_name, output_root="output", vis_root="vis_output"):
-    tsp_path = os.path.join("data", f"{tsp_name}.tsp")
-    coords = read_tsp_file(tsp_path)
-
-    for algo in os.listdir(output_root):
-        algo_dir = os.path.join(output_root, algo)
-        if not os.path.isdir(algo_dir):
+        # TSP 좌표 불러오기
+        if not os.path.exists(tsp_file):
+            print(f"[경고] TSP 파일 없음: {tsp_file}")
             continue
+        coords = load_coordinates(tsp_file)
 
-        for file in os.listdir(algo_dir):
-            if file.endswith(".tour") and file.startswith(tsp_name + "_"):
-                tour_path = os.path.join(algo_dir, file)
-                tour = read_tour_file(tour_path)
+        # TOUR 순서 불러오기
+        tour = load_tour(tour_file)
 
-                vis_path = os.path.join(vis_root, algo, file.replace(".tour", ".png"))
-                print(f"🔍 {file} → 저장: {vis_path}")
-                plot_and_save(coords, tour, vis_path)
+        # 시각화용 좌표 추출
+        x = [coords[city][0] for city in tour]
+        y = [coords[city][1] for city in tour]
 
-if __name__ == "__main__":
-    visualize_all("a20")
-    visualize_all("a280")  
-    visualize_all("xql662")  
-    visualize_all("kz9976")  
-    visualize_all("mona-lisa100K")
+ 
+        # 시각화
+        plt.figure(figsize=(10, 10))  # 더 큰 도화지
+        plt.plot(x, y, linestyle='-', linewidth=0.7, color='black', alpha=1.0)  # 진한 선
+        plt.title(filename)
+        plt.axis('equal')
+        plt.axis('off')  # 축 제거하면 더 깔끔
+        plt.tight_layout()
+
+        # 고해상도 저장
+        output_path = os.path.join(output_dir, filename.replace('.tour', '.png'))
+        plt.savefig(output_path, dpi=300)  # 고해상도 저장
+        plt.close()
+
+        print(f"✔ 시각화 완료: {output_path}")
+
+print("✅ 모든 시각화 완료!")

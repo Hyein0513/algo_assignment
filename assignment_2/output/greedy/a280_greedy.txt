@@ -8,6 +8,10 @@
 성능 상태          : 정상 실행됨
 
 === 비교 상세 로그 ===
-차이 발생 (라인 2)
-GT   : COMMENT: Tour length 2579
-내꺼 : COMMENT: Tour length 3157
+헤더 차이 (라인 2)
+GT   : COMMENT : Tour length 2579
+내꺼 : COMMENT : Tour length 3157
+노드 번호 차이 발견 (처음 일치하지 않은 라인 7)
+GT   : 2
+내꺼 : 280
+TOUR_SECTION 비교 결과: 1 / 281 정확도: 0.355872%
