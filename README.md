@@ -1,7 +1,7 @@
-# algo_assignment
+# algo_assignment_2
 
 ##  Note on Report Submission
-It was only after the deadline that I realized the submitted report was an incomplete draft version.  
+It was only after the deadline that I realized the submitted report was an incomplete version.  
 While I fully understand that the evaluation will be based on the initially submitted report,  
 I still felt it would be a shame not to share the completed final version.
 
